@@ -408,20 +408,18 @@
     debug:
       msg: "{{log.stdout}}"
 
-  # - name: make firmware patch
-  #   command: chdir=/usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ make
-
-  # - name: backup original firmware
-  #   command: chdir=/usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ make backup-firmware
-
-  # - name: install new firmware
-  #   command: chdir=/usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ make install-firmware
-
   - name: backup original firmware
     shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ && make backup-firmware"
     args:
       executable: /bin/bash
       chdir: /usr/local/src/nexmon/
+
+- name: Remove problematic lsmod entry
+  replace:
+    dest: /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/Makefile
+    backup: no
+    regexp: ".*shell lsmod.*$"
+    replace: "ifeq (1, 1)"
 
   - name: install new firmware
     shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ && make install-firmware"
