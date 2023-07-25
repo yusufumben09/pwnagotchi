@@ -377,8 +377,8 @@
   - name: choose the right kernel release (variable)
     lineinfile:
       dest: /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/Makefile
-      regexp: "DRIVER_FOLDER_NAME = .*$"
-      insertafter: "KERNEL_RELEASE = 5.10.103-v7+"
+      insertafter: "DRIVER_FOLDER_NAME = .*$"
+      line: "KERNEL_RELEASE = 5.10.103-v7+"
 
   - name: choose the right kernel release (replace string)
     replace:
