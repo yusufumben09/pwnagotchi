@@ -414,12 +414,12 @@
       executable: /bin/bash
       chdir: /usr/local/src/nexmon/
 
-- name: Remove problematic lsmod entry
-  replace:
-    dest: /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/Makefile
-    backup: no
-    regexp: ".*shell lsmod.*$"
-    replace: "ifeq (1, 1)"
+  - name: Remove problematic lsmod entry
+    replace:
+      dest: /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/Makefile
+      backup: no
+      regexp: ".*shell lsmod.*$"
+      replace: "ifeq (1, 1)"
 
   - name: install new firmware
     shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43436b0/9_88_4_65/nexmon/ && make install-firmware"
