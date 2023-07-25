@@ -10,7 +10,7 @@
 **NOTE:** This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. These changes might break functionality I do not care about but it does improve the core functionality on the Pi Zero 2 W. Major changes include:
 
 1. Update to Old Stable Buster Lite 2023-05-03
-2. Remove all dependency on Kali-Pi (causes more problems than it fixes)
+2. **Remove all dependency on Kali-Pi** (causes more problems than it fixes)
 3. Deploy [nexmon from source](https://github.com/seemoo-lab/nexmon) **only for the Raspberry Pi Zero 2 W**
 4. Update to Go v1.20.6
 5. Update to BetterCap v2.32
