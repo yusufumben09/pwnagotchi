@@ -11,15 +11,15 @@
 
 1. Update to Old Stable Buster Lite 2023-05-03
 2. **Remove all dependency on Kali-Pi** (causes more problems than it fixes)
-3. Deploy [nexmon from source](https://github.com/seemoo-lab/nexmon) **only for the Raspberry Pi Zero 2 W**
+3. Deploy [nexmon from source](https://github.com/seemoo-lab/nexmon) **only for the Raspberry Pi Zero 2 W that use the newer wifi chip** (e.g., bcm43436b0/9_88_4_65/)
 4. Update to Go v1.20.6
 5. Update to BetterCap v2.32
 6. Install pwnagotchi plugin for the Waveshare UPS hat
 7. Install screenrc and my preferred configuration for it
 8. Install aircrack-ng
-9. Temporary fix for a firmware bug that causes the BRCM firmware to crash during packet injection (e.g., deauth attack)
+9. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
 
-As of v1.7.0 it will not work for any other Raspberry Pi (e.g., 3/4 or Zero 1). I may eventually patch the chip firmware for those Pi's as well.
+As of v1.7.0 it will not work for any other Raspberry Pi (e.g., 3/4 or Zero 1) including Zero 2W that use the legacy/older wifi chip. I may eventually patch the chip firmware for those Pi's as well.
 
 ---
 
