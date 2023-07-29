@@ -397,46 +397,56 @@
 
   - name: choose the right kernel version (bcm43430a1)
     replace:
-      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/Makefile
+      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/Makefile
       backup: no
       regexp: "KERNEL_VERSION = .*$"
       replace: "KERNEL_VERSION = 5.10"
 
   - name: choose the right kernel release (variable) (bcm43430a1)
     lineinfile:
-      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/Makefile
+      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/Makefile
       insertafter: "DRIVER_FOLDER_NAME = .*$"
       line: "KERNEL_RELEASE = 5.10.103-v7+"
 
   - name: choose the right kernel release (replace string) (bcm43430a1)
     replace:
-      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/Makefile
+      dest: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/Makefile
       backup: no
       regexp: "shell uname -r"
       replace: "KERNEL_RELEASE"
 
   - name: make firmware patch (bcm43430a1)
-    shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/ && make"
+    shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/ && make"
     args:
       executable: /bin/bash
       chdir: /usr/local/src/nexmon/
 
   # - name: backup original firmware
-  #   shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/ && make backup-firmware"
+  #   shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/ && make backup-firmware"
   #   args:
   #     executable: /bin/bash
   #     chdir: /usr/local/src/nexmon/
 
   # - name: install new firmware
-  #   shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/ && make install-firmware"
+  #   shell: "source ./setup_env.sh && cd /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/ && make install-firmware"
   #   args:
   #     executable: /bin/bash
   #     chdir: /usr/local/src/nexmon/
 
   - name: install new firmware (bcm43430a1)
     copy:
-      src: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_26/nexmon/brcmfmac43430-sdio.bin
+      src: /usr/local/src/nexmon/patches/bcm43430a1/7_45_41_46/nexmon/brcmfmac43430-sdio.bin
       dest: /lib/firmware/brcm/brcmfmac43430-sdio.bin
+
+  - name: Delete the firmware blob to avoid it crashing
+    file:
+      state: absent
+      path: /lib/firmware/brcm/brcmfmac43430-sdio.clm_blob
+
+  - name: Delete the RPi3 firmware blob to avoid it crashing
+    file:
+      state: absent
+      path: /lib/firmware/brcm/brcmfmac43430-sdio.raspberrypi,3-model-b.clm_blob
 
   - name: make nexutil
     command: chdir=/usr/local/src/nexmon/utilities/nexutil/ make
