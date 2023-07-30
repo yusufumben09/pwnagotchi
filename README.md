@@ -7,11 +7,11 @@
     <a href="https://twitter.com/intent/follow?screen_name=pwnagotchi"><img src="https://img.shields.io/twitter/follow/pwnagotchi?style=social&logo=twitter" alt="follow on Twitter"></a>
 </p>
 
-**NOTE:** This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. These changes might break functionality I do not care about but it does improve the core functionality on the Pi Zero 2 W. Major changes include:
+**NOTE:** This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. Major changes include:
 
 1. Update to Old Stable Buster Lite 2023-05-03
 2. **Remove all dependency on Kali-Pi** (causes more problems than it fixes)
-3. Deploy [nexmon from source](https://github.com/seemoo-lab/nexmon) **only for the Raspberry Pi Zero 2 W that use the newer wifi chip** (e.g., bcm43436b0/9_88_4_65/)
+3. Compile [nexmon from source](https://github.com/seemoo-lab/nexmon) for the Raspberry Pi Zero 1 (RPiZW), the Raspberry Pi Zero 2W (RPiZ2W) that use both the newer wifi chip (e.g., bcm43436b0/9_88_4_65/) and older wifi chip (e.g., bcm43430a1/7_45_41_46). The Raspberry Pi 3 (RPi3) should also be supported via firmware patch bcm43430a1/7_45_41_46.
 4. Update to Go v1.20.6
 5. Update to BetterCap v2.32
 6. Install pwnagotchi plugin for the Waveshare UPS hat
@@ -19,7 +19,7 @@
 8. Install aircrack-ng
 9. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
 
-As of v1.7.0 it will not work for any other Raspberry Pi (e.g., 3/4 or Zero 1) including Zero 2W that use the legacy/older wifi chip. I may eventually patch the chip firmware for those Pi's as well.
+As of v1.7.3 this fork will **not** work for the Raspberry Pi 3B+ (RPi3B+) or Raspberry Pi 4 (RPi4).
 
 ---
 
