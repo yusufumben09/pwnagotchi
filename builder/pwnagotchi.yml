@@ -443,6 +443,11 @@
       state: absent
       path: /lib/firmware/brcm/brcmfmac43430-sdio.clm_blob
 
+  - name: Delete the RPiZW firmware blob to avoid it crashing
+    file:
+      state: absent
+      path: /lib/firmware/brcm/brcmfmac43430-sdio.raspberrypi,model-zero-w.clm_blob
+
   - name: Delete the RPi3 firmware blob to avoid it crashing
     file:
       state: absent
