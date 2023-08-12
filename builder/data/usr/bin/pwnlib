@@ -45,7 +45,7 @@ stop_monitor_interface() {
 
 # returns 0 if the specificed network interface is up
 is_interface_up() {
-  if [[ $(ip a show $1 up) ]]; then
+  if grep -qi 'up' /sys/class/net/$1/operstate; then
     return 0
   else
     return 1
