@@ -138,3 +138,4 @@ def load(config):
 
     on('loaded')
     on('config_changed', config)
+
