@@ -22,8 +22,6 @@
 9. Install aircrack-ng
 10. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
 
-As of v1.7.3 this fork will **not** work for the Raspberry Pi 3B+ (RPi3B+) or Raspberry Pi 4 (RPi4).
-
 ---
 
 [Pwnagotchi](https://pwnagotchi.ai/) is an [A2C](https://hackernoon.com/intuitive-rl-intro-to-advantage-actor-critic-a2c-4ff545978752)-based "AI" leveraging [bettercap](https://www.bettercap.org/) that learns from its surrounding WiFi environment to maximize the crackable WPA key material it captures (either passively, or by performing authentication and association attacks). This material is collected as PCAP files containing any form of handshake supported by [hashcat](https://hashcat.net/hashcat/), including [PMKIDs](https://www.evilsocket.net/2019/02/13/Pwning-WiFi-networks-with-bettercap-and-the-PMKID-client-less-attack/), 
