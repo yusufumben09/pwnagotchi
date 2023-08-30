@@ -13,8 +13,8 @@
 2. **Remove all dependency on Kali-Pi** (causes more problems than it fixes)
 3. Compile [nexmon from source](https://github.com/seemoo-lab/nexmon)
     * Raspberry Pi Zero 1 (RPiZW) supported via firmware patch bcm43430a1/7_45_41_46
-    * Raspberry Pi Zero 2W (RPiZ2W) supported via firmware patch bcm43436b0/9_88_4_65 and bcm43430a1/7_45_41_46
-    * Raspberry Pi 3 (RPi3) supported via firmware patch bcm43430a1/7_45_41_46
+    * Raspberry Pi Zero 2W (RPiZ2W) supported via firmware patch bcm43436b0/9_88_4_65 (43430/2) and bcm43430a1/7_45_41_46 (43430/1)
+    * Raspberry Pi 3B (RPi3B) and Pi 4 (RPi4) supported via firmware patch bcm43430a1/7_45_41_46
 5. Update to Go v1.20.6
 6. Update to BetterCap v2.32
 7. Install pwnagotchi plugin for the Waveshare UPS hat
