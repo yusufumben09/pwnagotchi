@@ -231,6 +231,35 @@
       path: /usr/local/src/hannadiamond
     when: hannadiamondgit.changed
 
+  - name: clone pwnagotchi community plugin repository
+    git:
+      repo: https://github.com/evilsocket/pwnagotchi-plugins-contrib.git
+      dest: /usr/local/src/pwnagotchi-plugins-contrib
+    register: pwnagotchi_plugin
+
+  - name: Copy mastodon.py
+    copy:
+      src: /usr/local/src/pwnagotchi-plugins-contrib/mastodon.py
+      dest: /usr/local/share/pwnagotchi/custom-plugins/mastodon.py
+      owner: root
+      group: root
+      mode: '644'
+
+  - name: Copy aircrackonly.py
+    copy:
+      src: /usr/local/src/pwnagotchi-plugins-contrib/aircrackonly.py
+      dest: /usr/local/share/pwnagotchi/custom-plugins/aircrackonly.py
+      owner: root
+      group: root
+      mode: '644'
+
+  - name: Delete pwnagotchi community plugin content & directory
+    file:
+      state: absent
+      path: /usr/local/src/pwnagotchi-plugins-contrib
+    when: pwnagotchi_plugin.changed
+
+
   # pip v20.3 uses a newer dependency resolver that better handles our unique situation.
   # Specifically, it handles mismatches between direct requirements without extras and
   # indirect requirements that do want extras (e.g. gym vs stable-baselines->gym[atari]).
@@ -507,10 +536,15 @@
   #   args:
   #     executable: /bin/bash
 
-  - name: copy modified driver
+  - name: copy modified driver (everyone but RPiZW)
     copy:
       src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
       dest: /lib/modules/5.10.103-v7+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+
+  - name: copy modified driver (RPiZW)
+    copy:
+      src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
+      dest: /lib/modules/5.10.103/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
   - name: ensure depmod runs on reboot to load modified driver (brcmfmac)
     lineinfile:
