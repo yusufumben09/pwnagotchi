@@ -9,18 +9,18 @@
 
 **NOTE:** This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. Major changes include:
 
-1. Update to Old Stable Buster Lite 2023-05-03
-2. **Remove all dependency on Kali-Pi** (causes more problems than it fixes)
+1. **Remove all dependency on Kali-Pi** (causes more problems than it fixes) :boom: :boom:
+2. Update to Old Stable Buster Lite 2023-05-03
 3. Compile [nexmon from source](https://github.com/seemoo-lab/nexmon)
     * Raspberry Pi Zero 1 (RPiZW) supported via firmware patch bcm43430a1/7_45_41_46
     * Raspberry Pi Zero 2W (RPiZ2W) supported via firmware patch bcm43436b0/9_88_4_65 (43430/2) and bcm43430a1/7_45_41_46 (43430/1)
-    * Raspberry Pi 3B (RPi3B) and Pi 4 (RPi4) supported via firmware patch bcm43430a1/7_45_41_46
-5. Update to Go v1.20.6
-6. Update to BetterCap v2.32
-7. Install pwnagotchi plugin for the Waveshare UPS hat
-8. Install screenrc and my preferred configuration for it
-9. Install aircrack-ng
-10. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
+    * Raspberry Pi 3B+ (RPi3B+) and Pi 4 (RPi4) supported via firmware patch bcm43455c0/7_45_206/
+4. Update to Go v1.20.6
+5. Update to BetterCap v2.32
+6. Install screenrc and my preferred configuration for it
+7. Install aircrack-ng
+8. Install pwnagotchi plugin for the Waveshare UPS hat, Mastodon, and aircrack (to delete empty pcap files); need to manually add configuration to config.toml
+9. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
 
 ---
 
