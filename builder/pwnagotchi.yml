@@ -259,7 +259,6 @@
       path: /usr/local/src/pwnagotchi-plugins-contrib
     when: pwnagotchi_plugin.changed
 
-
   # pip v20.3 uses a newer dependency resolver that better handles our unique situation.
   # Specifically, it handles mismatches between direct requirements without extras and
   # indirect requirements that do want extras (e.g. gym vs stable-baselines->gym[atari]).
@@ -346,6 +345,7 @@
     git:
       repo: https://github.com/seemoo-lab/nexmon.git
       dest: /usr/local/src/nexmon
+      version: bfb3fe90c881498d7ee245b38f16722c1de26fa1
     register: nexmongit
 
   - name: configure libisl
@@ -541,10 +541,10 @@
       src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
       dest: /lib/modules/5.10.103-v7+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
-#  - name: copy modified driver (RPiZW)
-#    copy:
-#      src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
-#      dest: /lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+  - name: copy modified driver (RPiZW)
+    copy:
+      src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
+      dest: /lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
   - name: ensure depmod runs on reboot to load modified driver (brcmfmac)
     lineinfile:
