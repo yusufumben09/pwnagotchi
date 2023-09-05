@@ -115,6 +115,7 @@
           - libtool
           - texinfo
           - binutils
+          - lnav
 
   tasks:
   - name: change hostname
