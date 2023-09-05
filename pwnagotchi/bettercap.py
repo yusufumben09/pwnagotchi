@@ -53,5 +53,9 @@ class Client(object):
                 logging.exception("Other error while opening websocket (%s) with parameter %s", e, s)
 
     def run(self, command, verbose_errors=True):
-        r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
+        try:
+            r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
+        except Exception as e:
+            logging.exception("Request error (%s) while running command (%s)", e, command)
+            
         return decode(r, verbose_errors=verbose_errors)
