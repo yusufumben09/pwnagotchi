@@ -49,6 +49,8 @@ class Client(object):
                 logging.debug("Lost websocket connection. Reconnecting...")
             except websockets.exceptions.WebSocketException as wex:
                 logging.debug("Websocket exception (%s)", wex)
+            except Exception as e:
+                logging.exception("Other error while opening websocket (%s)", e)
 
     def run(self, command, verbose_errors=True):
         r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
