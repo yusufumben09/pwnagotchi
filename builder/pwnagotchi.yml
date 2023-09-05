@@ -633,6 +633,13 @@
 #      line: "# main.plugins.ups_hat_c.enabled = true\n# main.plugins.ups_hat_c.label_on = true  # show BAT label or just percentage\n# main.plugins.ups_hat_c.shutdown = 5  # battery percent at which the device will turn off\n# main.plugins.ups_hat_c.bat_x_coord = 140\n# main.plugins.ups_hat_c.bat_y_coord = 0"
 #      insertafter: EOF
 
+  - name: Reconfigure auto-update to point to the aluminum-ice repo (bizzarely changing the plugin code directly reverts to the old string)
+    replace:
+      dest: /usr/local/lib/python3.7/dist-packages/pwnagotchi/plugins/default/auto-update.py
+      backup: no
+      regexp: "evilsocket/pwnagotchi"
+      replace: "aluminum-ice/pwnagotchi"
+
   - name: enable ssh on boot
     file:
       path: /boot/ssh
