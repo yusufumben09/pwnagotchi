@@ -52,8 +52,10 @@ class Client(object):
                 logging.debug("Lost websocket connection. Reconnecting...")
             except websockets.exceptions.WebSocketException as wex:
                 logging.debug("Websocket exception (%s)", wex)
+            except OSError as e:
+                logging.debug("Websocket OSError exception (%s) with parameter %s", e, s)
             except Exception as e:
-                logging.exception("Other error while opening websocket (%s) with parameter %s", e, s)
+                logging.debug("Other exception (%s) with parameter %s", e, s)
 
     def run(self, command, verbose_errors=True):
         for _ in range(0,2):
