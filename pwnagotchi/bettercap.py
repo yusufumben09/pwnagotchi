@@ -50,7 +50,7 @@ class Client(object):
             except websockets.exceptions.WebSocketException as wex:
                 logging.debug("Websocket exception (%s)", wex)
             except Exception as e:
-                logging.exception("Other error while opening websocket (%s)", e)
+                logging.exception("Other error while opening websocket (%s) with parameter", e, s)
 
     def run(self, command, verbose_errors=True):
         r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
