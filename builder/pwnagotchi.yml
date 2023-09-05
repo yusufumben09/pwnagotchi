@@ -346,7 +346,7 @@
     git:
       repo: https://github.com/seemoo-lab/nexmon.git
       dest: /usr/local/src/nexmon
-      version: bfb3fe90c881498d7ee245b38f16722c1de26fa1
+#      version: bfb3fe90c881498d7ee245b38f16722c1de26fa1
     register: nexmongit
 
   - name: configure libisl
