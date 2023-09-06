@@ -40,22 +40,39 @@ class Client(object):
 
     async def start_websocket(self, consumer):
         s = "%s/events" % self.websocket
-        while True:
-            try:
-                async with websockets.connect(s, ping_interval=60, ping_timeout=90) as ws:
+        # while True:
+        #     try:
+        #         async with websockets.connect(s, ping_interval=60, ping_timeout=90) as ws:
+        #             async for msg in ws:
+        #                 try:
+        #                     await consumer(msg)
+        #                 except Exception as ex:
+        #                     logging.debug("Error while parsing event (%s)", ex)
+        #     except websockets.exceptions.ConnectionClosedError:
+        #         logging.debug("Lost websocket connection. Reconnecting...")
+        #     except websockets.exceptions.WebSocketException as wex:
+        #         logging.debug("Websocket exception (%s)", wex)
+        #     except OSError as e:
+        #         logging.debug("Websocket OSError exception (%s) with parameter %s", e, s)
+        #     except Exception as e:
+        #         logging.debug("Other exception (%s) with parameter %s", e, s)
+
+        async with websockets.connect(s, ping_interval=60, ping_timeout=90) as ws:
+            while True:
+                try:
                     async for msg in ws:
                         try:
                             await consumer(msg)
                         except Exception as ex:
-                            logging.debug("Error while parsing event (%s)", ex)
-            except websockets.exceptions.ConnectionClosedError:
-                logging.debug("Lost websocket connection. Reconnecting...")
-            except websockets.exceptions.WebSocketException as wex:
-                logging.debug("Websocket exception (%s)", wex)
-            except OSError as e:
-                logging.debug("Websocket OSError exception (%s) with parameter %s", e, s)
-            except Exception as e:
-                logging.debug("Other exception (%s) with parameter %s", e, s)
+                                logging.debug("Error while parsing event (%s)", ex)
+                except websockets.exceptions.ConnectionClosedError:
+                    logging.error("Lost websocket connection. Reconnecting...")
+                except websockets.exceptions.WebSocketException as wex:
+                    logging.error("Websocket exception (%s)", wex)
+                except OSError as e:
+                    logging.error("Websocket OSError exception (%s) with parameter %s", e, s)
+                except Exception as e:
+                    logging.error("Other exception (%s) with parameter %s", e, s)
 
     def run(self, command, verbose_errors=True):
         for _ in range(0,2):
