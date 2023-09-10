@@ -542,11 +542,6 @@
       src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
       dest: /lib/modules/5.10.103-v7+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
 
-  # - name: copy modified driver (RPiZW)
-  #   copy:
-  #     src: /usr/local/src/nexmon/patches/driver/brcmfmac_5.10.y-nexmon/brcmfmac.ko
-  #     dest: /lib/modules/5.10.103+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
-
   - name: ensure depmod runs on reboot to load modified driver (brcmfmac)
     lineinfile:
       dest: /etc/rc.local
@@ -639,6 +634,16 @@
       backup: no
       regexp: "evilsocket/pwnagotchi"
       replace: "aluminum-ice/pwnagotchi"
+
+  - name: Delete unnecessary large folder to save space (/root/go) 
+    file:
+      state: absent
+      path: /root/go
+
+  - name: Delete unnecessary large folder to save space (/root/.cache)
+    file:
+      state: absent
+      path: /root/.cache
 
   - name: enable ssh on boot
     file:
