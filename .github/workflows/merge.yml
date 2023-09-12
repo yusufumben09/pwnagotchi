@@ -1,4 +1,4 @@
-name: OnMerge CI/CD
+name: CreateRelease
 
 on:
   workflow_dispatch:
