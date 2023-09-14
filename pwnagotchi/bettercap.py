@@ -59,7 +59,7 @@ class Client(object):
         #                     logging.debug("Error while parsing event (%s)", ex)
         #     except websockets.exceptions.ConnectionClosedError:
         #         sleep_time = max_sleep*random.random()
-        #         logger.warning('Retrying websocket connection in {} sec'.format(sleep_time))
+        #         logging.warning('Retrying websocket connection in {} sec'.format(sleep_time))
         #         await asyncio.sleep(sleep_time)
         #         continue
 
@@ -89,8 +89,8 @@ class Client(object):
                                 break
             except ConnectionRefusedError:
                 sleep_time = max_sleep*random.random()
-                logger.warning('nobody seems to listen to the bettercap endpoint...')
-                logger.warning('retrying connection in {} sec'.format(sleep_time))
+                logging.warning('nobody seems to listen to the bettercap endpoint...')
+                logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
 
