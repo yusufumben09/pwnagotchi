@@ -93,6 +93,13 @@ class Client(object):
                 logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
+            except OSError:
+                sleep_time = max_sleep*random.random()
+                logging.warning('OSError: connection call to the bettercap endpoint failed...')
+                logging.warning('retrying connection in {} sec'.format(sleep_time))
+                await asyncio.sleep(sleep_time)
+                continue
+
 
     def run(self, command, verbose_errors=True):
         for _ in range(0,2):
