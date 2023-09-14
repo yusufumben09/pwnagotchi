@@ -10,8 +10,9 @@ from time import sleep
 
 requests.adapters.DEFAULT_RETRIES = 5 # increase retries number
 
-ping_timeout  = 90
-ping_interval = 60
+ping_timeout  = 180
+ping_interval = 15
+max_queue = 10000
 
 max_sleep = 2.0
 
@@ -66,7 +67,7 @@ class Client(object):
         while True:
             logging.info("creating new websocket...")
             try: 
-                async with websockets.connect(s, ping_interval=ping_interval, ping_timeout=ping_timeout) as ws:
+                async with websockets.connect(s, ping_interval=ping_interval, ping_timeout=ping_timeout, max_queue=max_queue) as ws:
                     # listener loop
                     while True:
                         try:
@@ -79,11 +80,11 @@ class Client(object):
                             try: 
                                 pong = await ws.ping()
                                 await asyncio.wait_for(pong, timeout=ping_timeout)
-                                logger.warning('ping OK, keeping connection alive...')
+                                logging.warning('ping OK, keeping connection alive...')
                                 continue
                             except:
                                 sleep_time = max_sleep*random.random()
-                                logger.warning('ping error - retrying connection in {} sec'.format(sleep_time))
+                                logging.warning('ping error - retrying connection in {} sec'.format(sleep_time))
                                 await asyncio.sleep(sleep_time)
                                 break
             except ConnectionRefusedError:
