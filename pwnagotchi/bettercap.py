@@ -90,13 +90,13 @@ class Client(object):
                                 break
             except ConnectionRefusedError:
                 sleep_time = min_sleep + max_sleep*random.random()
-                logging.warning('nobody seems to listen to the bettercap endpoint...')
+                logging.warning('nobody seems to be listening at the bettercap endpoint...')
                 logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
             except OSError:
                 sleep_time = min_sleep + max_sleep*random.random()
-                logging.warning('OSError: connection call to the bettercap endpoint failed...')
+                logging.warning('connection to the bettercap endpoint failed...')
                 logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
@@ -108,8 +108,8 @@ class Client(object):
                 r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
             except requests.exceptions.ConnectionError as e:
                 sleep_time = min_sleep + max_sleep*random.random()
-                logging.warning("Request connection error (%s) while running command (%s)", e, command)
-                logging.warning('Retrying run in {} sec'.format(sleep_time))
+                logging.warning("can't run my request... connection to the bettercap endpoint failed...")
+                logging.warning('retrying run in {} sec'.format(sleep_time))
                 sleep(sleep_time)
             else:
                 break
