@@ -21,10 +21,10 @@ jobs:
     #     VERSION: ${{ steps.set-version.outputs.version }}  # Use the extracted version
     
 
-    # - name: Show Version
-    #   run: |
-    #     # Use the $VERSION variable in your build or deployment steps
-    #     echo "Using VERSION: ${{env.VERSION}}"
+    - name: Show Version
+      run: |
+        # Use the $VERSION variable in your build or deployment steps
+        echo "Using VERSION: ${{ env.VERSION }}"
 
     - name: Install language dependencies
       run: sudo apt-get install -y gettext
@@ -37,7 +37,7 @@ jobs:
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-$VERSION-shrink.7z ./pwnagotchi-raspios-lite-$VERSION.img
+        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
 
     - name: Create GitHub Release
       id: create_new_release
@@ -53,7 +53,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./pwnagotchi-raspios-lite-$VERSION.sha256
+        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
         asset_name: pwnagotchi-v${{ github.run_namber }}.sha256
         asset_content_type: appliction/text
     - name: Upload GitHub Release Zip
@@ -62,7 +62,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./pwnagotchi-raspios-lite-$VERSION-shrink.7z
+        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z
         asset_name: pwnagotchi-v${{ github.run_namber }}.7z
         asset_content_type: appliction/zip
 
