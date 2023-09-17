@@ -33,7 +33,7 @@ jobs:
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: 7z a -t7z -mx=9 raspios_oldstable_lite-$VERSION-shrink.7z ./raspios_oldstable_lite-$VERSION.img
+        args: 7z a -t7z -mx=9 9G pwnagotchi-raspios-lite-$VERSION-shrink.7z ./9G pwnagotchi-raspios-lite-$VERSION.img
 
     - name: Create GitHub Release
       id: create_new_release
@@ -49,7 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./raspios_oldstable_lite-$VERSION.sha256
+        asset_path: ./pwnagotchi-raspios-lite-$VERSION.sha256
         asset_name: pwnagotchi-v${{ github.run_namber }}.sha256
         asset_content_type: appliction/text
     - name: Upload GitHub Release Zip
@@ -58,7 +58,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./raspios_oldstable_lite-$VERSION-shrink.7z
+        asset_path: ./pwnagotchi-raspios-lite-$VERSION-shrink.7z
         asset_name: pwnagotchi-v${{ github.run_namber }}.7z
         asset_content_type: appliction/zip
 
