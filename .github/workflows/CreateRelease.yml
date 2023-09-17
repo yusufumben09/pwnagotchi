@@ -13,7 +13,7 @@ jobs:
 
     - name: Get version
       shell: bash
-      run:
+      run: |
       env:
         VERSION: $(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'") 
 
