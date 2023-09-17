@@ -18,6 +18,8 @@ main.whitelist = [
 ]
 main.filter = ""
 
+mail.log.debug = false
+
 main.plugins.grid.enabled = true
 main.plugins.grid.report = false
 main.plugins.grid.exclude = [
