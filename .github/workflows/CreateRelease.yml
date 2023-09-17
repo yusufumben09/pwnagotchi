@@ -11,12 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: set-version
+    - name: Get version
       run: |
         # Extract version from Python script (replace this line with your extraction command)
         VERSION=$(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'")
       env:
-        VERSION: ${{ steps.set-version.outputs.version }}  # Use the extracted version
+        VERSION: $(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'") 
 
     - name: Show Version
       run: |
