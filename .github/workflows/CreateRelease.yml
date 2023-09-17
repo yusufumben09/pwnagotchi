@@ -11,7 +11,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set VERSION variable
+    - name: set-version
       run: |
         # Extract version from Python script (replace this line with your extraction command)
         VERSION=$(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'")
