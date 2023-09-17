@@ -14,9 +14,9 @@ jobs:
     - name: Get version
       run: |
         # Extract version from Python script (replace this line with your extraction command)
-        VERSION=$(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'")
+        echo $(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'")
       env:
-        VERSION: $(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'") 
+        VERSION: ${{ awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'" }} 
 
     - name: Show Version
       run: |
