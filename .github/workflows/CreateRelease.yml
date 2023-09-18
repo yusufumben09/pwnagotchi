@@ -35,6 +35,14 @@ jobs:
     - name: Image
       run: make image
 
+    - name: Shrink Image
+      run: |
+        ls -a -s -h
+        wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+        chmod +x pishrink.sh
+        sudo mv pishrink.sh /usr/local/bin
+        sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
+
     - uses: edgarrc/action-7z@v1
       with:
         args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
