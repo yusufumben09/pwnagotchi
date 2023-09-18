@@ -14,7 +14,8 @@ ping_timeout  = 180
 ping_interval = 15
 max_queue = 10000
 
-max_sleep = 2.0
+min_sleep = 0.5
+max_sleep = 5.0
 
 def decode(r, verbose_errors=True):
     try:
@@ -83,32 +84,32 @@ class Client(object):
                                 logging.warning('ping OK, keeping connection alive...')
                                 continue
                             except:
-                                sleep_time = max_sleep*random.random()
+                                sleep_time = min_sleep + max_sleep*random.random()
                                 logging.warning('ping error - retrying connection in {} sec'.format(sleep_time))
                                 await asyncio.sleep(sleep_time)
                                 break
             except ConnectionRefusedError:
-                sleep_time = max_sleep*random.random()
-                logging.warning('nobody seems to listen to the bettercap endpoint...')
+                sleep_time = min_sleep + max_sleep*random.random()
+                logging.warning('nobody seems to be listening at the bettercap endpoint...')
                 logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
             except OSError:
-                sleep_time = max_sleep*random.random()
-                logging.warning('OSError: connection call to the bettercap endpoint failed...')
+                sleep_time = min_sleep + max_sleep*random.random()
+                logging.warning('connection to the bettercap endpoint failed...')
                 logging.warning('retrying connection in {} sec'.format(sleep_time))
                 await asyncio.sleep(sleep_time)
                 continue
 
 
     def run(self, command, verbose_errors=True):
-        for _ in range(0,2):
+        while True:
             try:
                 r = requests.post("%s/session" % self.url, auth=self.auth, json={'cmd': command})
             except requests.exceptions.ConnectionError as e:
-                sleep_time = max_sleep*random.random()
-                logging.exception("Request connection error (%s) while running command (%s)", e, command)
-                logging.warning('Retrying run in {} sec'.format(sleep_time))
+                sleep_time = min_sleep + max_sleep*random.random()
+                logging.warning("can't run my request... connection to the bettercap endpoint failed...")
+                logging.warning('retrying run in {} sec'.format(sleep_time))
                 sleep(sleep_time)
             else:
                 break
