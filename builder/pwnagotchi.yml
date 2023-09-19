@@ -117,20 +117,21 @@
           - texinfo
           - binutils
           - lnav
+          - p7zip-full
 
   environment:
     ARCHFLAGS: "-arch armv7l"
-          
+
   tasks:
   - name: System details
-    debug: 
+    debug:
       msg="{{ item }}"
-    with_items: 
+    with_items:
       - "{{ ansible_distribution }}"
       - "{{ ansible_distribution_version }}"
-      - "{{ ansible_distribution_major_version }}" 
+      - "{{ ansible_distribution_major_version }}"
       - "{{ ansible_architecture }}"
-      - "{{ ansible_machine }}" 
+      - "{{ ansible_machine }}"
   - name: change hostname
     hostname:
       name: "{{pwnagotchi.hostname}}"
