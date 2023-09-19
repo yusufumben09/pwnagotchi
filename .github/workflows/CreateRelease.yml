@@ -42,10 +42,11 @@ jobs:
         chmod +x pishrink.sh
         sudo mv pishrink.sh /usr/local/bin
         sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
+        sudo sha256sum ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img >  ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.sha256
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
+        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
 
     - name: Create GitHub Release
       id: create_new_release
