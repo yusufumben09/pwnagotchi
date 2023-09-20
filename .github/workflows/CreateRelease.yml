@@ -54,8 +54,8 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
     - name: Upload GitHub Release sha
       uses: actions/upload-release-asset@v1
       env: 
@@ -63,7 +63,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
         asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
-        asset_name: pwnagotchi-v${{ github.run_namber }}.sha256
+        asset_name: pwnagotchi-v${{ env.VERSION }}.sha256
         asset_content_type: appliction/text
     - name: Upload GitHub Release Zip
       uses: actions/upload-release-asset@v1
@@ -72,6 +72,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
         asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z
-        asset_name: pwnagotchi-v${{ github.run_namber }}.7z
+        asset_name: pwnagotchi-v${{ env.VERSION }}.7z
         asset_content_type: appliction/zip
 
