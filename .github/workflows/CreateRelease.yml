@@ -1,0 +1,77 @@
+name: CreateRelease
+
+env:
+  VERSION: 1.7.9
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # - name: Set VERSION variable
+    #   run: |
+    #     VERSION=$(awk '/__version__ /{print $NF}' ./pwnagotchi/_version.py | tr -d "'")
+    #   env:
+    #     VERSION: ${{ steps.set-version.outputs.version }}  # Use the extracted version
+    
+
+    - name: Show Version
+      run: |
+        # Use the $VERSION variable in your build or deployment steps
+        echo "Using VERSION: ${{ env.VERSION }}"
+
+    - name: Install language dependencies
+      run: sudo apt-get install -y gettext
+
+    - name: Languages
+      run: make langs
+
+    - name: Image
+      run: make image
+
+    - name: Shrink Image
+      run: |
+        ls -a -s -h
+        wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+        chmod +x pishrink.sh
+        sudo mv pishrink.sh /usr/local/bin
+        sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
+        sudo sha256sum ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img >  ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.sha256
+
+    - uses: edgarrc/action-7z@v1
+      with:
+        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
+
+    - name: Create GitHub Release
+      id: create_new_release
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+    - name: Upload GitHub Release sha
+      uses: actions/upload-release-asset@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      with:
+        upload_url: ${{ steps.create_new_release.outputs.upload_url }}
+        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
+        asset_name: pwnagotchi-v${{ env.VERSION }}.sha256
+        asset_content_type: appliction/text
+    - name: Upload GitHub Release Zip
+      uses: actions/upload-release-asset@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      with:
+        upload_url: ${{ steps.create_new_release.outputs.upload_url }}
+        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z
+        asset_name: pwnagotchi-v${{ env.VERSION }}.7z
+        asset_content_type: appliction/zip
+
