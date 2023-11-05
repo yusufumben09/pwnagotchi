@@ -46,7 +46,7 @@ jobs:
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
+        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
 
     - name: Create GitHub Release
       id: create_new_release
