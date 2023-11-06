@@ -11,7 +11,7 @@ on:
           description: 'pishrink Script'
           default: 'https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh'
           type: string
-        7z_compress_args:
+        z_compress_args:
           description: '7z compress args'
           default: '7z a -t7z -mx=9'
           type: string
@@ -55,7 +55,7 @@ jobs:
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: ${{ inputs.7z_compress_args }} pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
+        args: ${{ inputs.z_compress_args }} pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
 
     - name: Create GitHub Release
       id: create_new_release
