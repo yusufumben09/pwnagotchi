@@ -125,6 +125,18 @@ main.plugins.logtail.max-lines = 10000
 main.plugins.session-stats.enabled = true
 main.plugins.session-stats.save_directory = "/var/tmp/pwnagotchi/sessions/"
 
+main.plugins.mastodon.enabled = false
+main.plugins.mastodon.instance_url = ""
+main.plugins.mastodon.token = ""
+main.plugins.mastodon.visibility = "unlisted"
+
+main.plugins.ntfy.enabled = false
+main.plugins.ntfy.name = "pwnagotchi"
+main.plugins.ntfy.serverlink = ""
+main.plugins.ntfy.token = ""
+main.plugins.ntfy.priority = "3"
+main.plugins.ntfy.icon = "https://files.catbox.moe/1toze0.jpg"
+
 main.log.path = "/var/log/pwnagotchi.log"
 main.log.rotation.enabled = true
 main.log.rotation.size = "10M"
