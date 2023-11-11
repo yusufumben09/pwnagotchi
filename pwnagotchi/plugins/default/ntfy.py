@@ -7,7 +7,7 @@ API_ENDPOINT = "http://127.0.0.1:8666/api/v1/inbox/"
 
 class ntfy(plugins.Plugin):
     __author__ = "retiolus"
-    __version__ = '1.3.0'
+    __version__ = '1.4.0'
     __license__ = 'GPL3'
     __description__ = '''A plugin for Pwnagotchi to send notifications and alerts to devices via ntfy service.
                     Don't forget to add the following options in your config (token, priority and icon are optional):
