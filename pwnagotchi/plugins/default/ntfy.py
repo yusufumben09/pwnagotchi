@@ -7,7 +7,7 @@ API_ENDPOINT = "http://127.0.0.1:8666/api/v1/inbox/"
 
 class ntfy(plugins.Plugin):
     __author__ = "retiolus"
-    __version__ = '1.4.0'
+    __version__ = '1.4.1'
     __license__ = 'GPL3'
     __description__ = '''A plugin for Pwnagotchi to send notifications and alerts to devices via ntfy service.
                     Don't forget to add the following options in your config (token, priority and icon are optional):
@@ -105,7 +105,7 @@ class ntfy(plugins.Plugin):
                 self.internet_notification_sent = True
   
     def on_handshake(self, agent, filename, access_point, client_station):
-        message = self.options.get('on_handshake_msg', 'Your {self.name} has captured a new handshake from {client_station["mac"]} (Client) via {access_point["mac"]} (Access Point).').format(**locals())
+        message = self.options.get('on_handshake_msg', 'Your {self.name} has captured a new handshake from {client_station[mac]} (Client) via {access_point[mac]} (Access Point).').format(**locals())
         title = self.options.get('on_handshake_title', '{message}').format(**locals())
         tags = self.options.get('on_handshake_tags', 'triangular_flag_on_post')
         # save_button = f"http, save, {self.serverlink}/{filename}"
