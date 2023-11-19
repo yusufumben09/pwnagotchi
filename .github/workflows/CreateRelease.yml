@@ -1,10 +1,20 @@
-name: CreateRelease
-
-env:
-  VERSION: 1.8.0
+name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+        release_version:
+          description: 'Release version'
+          required: true
+          type: string
+        pishrink:
+          description: 'pishrink Script'
+          default: 'https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh'
+          type: string
+        z_compress_args:
+          description: '7z compress args'
+          default: '7z a -t7z -mx=9'
+          type: string
 
 jobs:
   build:
@@ -20,11 +30,10 @@ jobs:
     #   env:
     #     VERSION: ${{ steps.set-version.outputs.version }}  # Use the extracted version
     
-
     - name: Show Version
       run: |
         # Use the $VERSION variable in your build or deployment steps
-        echo "Using VERSION: ${{ env.VERSION }}"
+        echo "Using VERSION: ${{ inputs.release_version }}"
 
     - name: Install language dependencies
       run: sudo apt-get install -y gettext
@@ -38,15 +47,15 @@ jobs:
     - name: Shrink Image
       run: |
         ls -a -s -h
-        wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+        wget ${{ inputs.pishrink }}
         chmod +x pishrink.sh
         sudo mv pishrink.sh /usr/local/bin
-        sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img
-        sudo sha256sum ./pwnagotchi-raspios-lite-${{ env.VERSION }}.img >  ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.sha256
+        sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
+        sudo sha256sum ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img >  ./pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.sha256
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: 7z a -t7z -mx=9 pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
+        args: ${{ inputs.z_compress_args }} pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
 
     - name: Create GitHub Release
       id: create_new_release
@@ -54,16 +63,16 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ env.VERSION }}
-        release_name: Release ${{ env.VERSION }}
+        tag_name: ${{ inputs.release_version }}
+        release_name: Release ${{ inputs.release_version }}
     - name: Upload GitHub Release sha
       uses: actions/upload-release-asset@v1
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}.sha256
-        asset_name: pwnagotchi-v${{ env.VERSION }}.sha256
+        asset_path: ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.sha256
+        asset_name: pwnagotchi-v${{ inputs.release_version }}.sha256
         asset_content_type: appliction/text
     - name: Upload GitHub Release Zip
       uses: actions/upload-release-asset@v1
@@ -71,7 +80,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./pwnagotchi-raspios-lite-${{ env.VERSION }}-shrink.7z
-        asset_name: pwnagotchi-v${{ env.VERSION }}.7z
+        asset_path: ./pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z
+        asset_name: pwnagotchi-v${{ inputs.release_version }}.7z
         asset_content_type: appliction/zip
 
