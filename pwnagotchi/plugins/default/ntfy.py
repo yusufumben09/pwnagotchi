@@ -7,7 +7,7 @@ API_ENDPOINT = "http://127.0.0.1:8666/api/v1/inbox/"
 
 class ntfy(plugins.Plugin):
     __author__ = "retiolus"
-    __version__ = '1.3.0'
+    __version__ = '1.4.1'
     __license__ = 'GPL3'
     __description__ = '''A plugin for Pwnagotchi to send notifications and alerts to devices via ntfy service.
                     Don't forget to add the following options in your config (token, priority and icon are optional):
@@ -97,25 +97,33 @@ class ntfy(plugins.Plugin):
         self.handshakes_dir = config['bettercap']['handshakes']
 
         if not self.internet_notification_sent:
-            message = f'Congratulations! Your {self.name} is now connected to the Internet.'
-            success = self.send_notification(title_text=self.name, message_text=message, tags="rotating_light")
+            title = self.options.get('on_internet_available_title', '{self.name}').format(**locals())
+            message = self.options.get('on_internet_available_msg', 'Congratulations! Your {self.name} is now connected to the Internet.').format(**locals())
+            tags = self.options.get('on_internet_available_tags', 'rotating_light')
+            success = self.send_notification(title_text=title, message_text=message, tags=tags)
             if success:
                 self.internet_notification_sent = True
   
     def on_handshake(self, agent, filename, access_point, client_station):
-        message = f'Your {self.name} has captured a new handshake from {client_station["mac"]} (Client) via {access_point["mac"]} (Access Point).'
+        message = self.options.get('on_handshake_msg', 'Your {self.name} has captured a new handshake from {client_station[mac]} (Client) via {access_point[mac]} (Access Point).').format(**locals())
+        title = self.options.get('on_handshake_title', '{message}').format(**locals())
+        tags = self.options.get('on_handshake_tags', 'triangular_flag_on_post')
         # save_button = f"http, save, {self.serverlink}/{filename}"
         wigle_button = f"view, wigle.net, https://wigle.net/search?netid={access_point['mac']}"
         actions = f"{wigle_button}"
-        self.send_notification(title_text=message, message_text=message, file_path=filename, tags="triangular_flag_on_post", actions=actions)
+        self.send_notification(title_text=title, message_text=message, file_path=filename, tags=tags, actions=actions)
 
     def on_peer_detected(self, agent, peer):
-        message = f'A new peer, {peer}, has been detected by your {self.name}!'
-        self.send_notification(title_text=self.name, message_text=message, tags="revolving_hearts")
+        title = self.options.get('on_peer_detected_title', '{self.name}').format(**locals())
+        message = self.options.get('on_peer_detected_msg', 'A new peer, {peer.name}, has been detected by your {self.name}!').format(**locals())
+        tags = self.options.get('on_peer_detected_tags', 'revolving_hearts')
+        self.send_notification(title_text=title, message_text=message, tags=tags)
 
     def on_peer_lost(self, agent, peer):
-        message = f'Your {self.name} lost connection with peer: {peer}.'
-        self.send_notification(title_text=self.name, message_text=message, tags="broken_heart")
+        title = self.options.get('on_peer_lost_title', '{self.name}').format(**locals())
+        message = self.options.get('on_peer_lost_msg', 'Your {self.name} lost connection with peer: {peer.name}.').format(**locals())
+        tags = self.options.get('on_peer_lost_tags', 'broken_heart')
+        self.send_notification(title_text=title, message_text=message, tags=tags)
 
     # TODO
 
