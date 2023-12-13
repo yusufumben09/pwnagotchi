@@ -11,6 +11,7 @@
       boot_options:
         - "dtoverlay=dwc2"
         - "dtoverlay=spi1-3cs"
+        - "dtoverlay=pwm-2chan,pin=12,func=4,pin2=13,func2=4"
         - "dtparam=spi=on"
         - "dtparam=i2c_arm=on"
         - "dtparam=i2c1=on"
