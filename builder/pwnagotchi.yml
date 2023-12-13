@@ -119,7 +119,6 @@
           - binutils
           - lnav
           - p7zip-full
-          - rpi-hardware-pwm
 
   environment:
     ARCHFLAGS: "-arch armv7l"
@@ -279,10 +278,11 @@
   # pip v20.3 uses a newer dependency resolver that better handles our unique situation.
   # Specifically, it handles mismatches between direct requirements without extras and
   # indirect requirements that do want extras (e.g. gym vs stable-baselines->gym[atari]).
-  - name: Upgrade pip
+  - name: Upgrade pip and install rpi-hardware-pwm
     pip:
-      name: "pip"
-      version: ">=20.3"
+      name:
+        - pip>=20.3
+        - rpi-hardware-pwm
 
   # We need the --ignore-installed option so that pip simply overwrites/upgrades existing
   # packages instead of trying to uninstall them first.  While this sounds dangerous,
