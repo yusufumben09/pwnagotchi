@@ -118,6 +118,7 @@
           - binutils
           - lnav
           - p7zip-full
+          - rpi-hardware-pwm
 
   environment:
     ARCHFLAGS: "-arch armv7l"
