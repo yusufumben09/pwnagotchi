@@ -1,3 +1,1 @@
-import os
-
-__version__ = os.environ["PWN_RELEASE"]
+__version__='1.8.2'
