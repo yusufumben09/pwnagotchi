@@ -37,7 +37,7 @@ jobs:
 
     - name: Set _version.py correctly using the env variable
       run: |
-        sed -i '' "s#.*__version__.*#__version__='$PWN_VERSION'#" pwnagotchi/_version.py
+        sed -i "s#.*__version__.*#__version__='$PWN_VERSION'#" pwnagotchi/_version.py
       env: 
         PWN_VERSION: ${{ inputs.release_version }}
 
