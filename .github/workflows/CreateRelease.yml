@@ -59,11 +59,14 @@ jobs:
         chmod +x pishrink.sh
         sudo mv pishrink.sh /usr/local/bin
         sudo pishrink.sh ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
-        sudo sha256sum ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img >  ./pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.sha256
 
     - uses: edgarrc/action-7z@v1
       with:
-        args: ${{ inputs.z_compress_args }} pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
+        args: ${{ inputs.z_compress_args }} pwnagotchi-raspios-lite-${{ inputs.release_version }}.7z ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.img
+
+    - name: sha256sum 7z
+      run: |
+        sudo sha256sum ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.7z >  ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.sha256
 
     - name: Create GitHub Release
       id: create_new_release
@@ -88,7 +91,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       with:
         upload_url: ${{ steps.create_new_release.outputs.upload_url }}
-        asset_path: ./pwnagotchi-raspios-lite-${{ inputs.release_version }}-shrink.7z
+        asset_path: ./pwnagotchi-raspios-lite-${{ inputs.release_version }}.7z
         asset_name: pwnagotchi-v${{ inputs.release_version }}.7z
         asset_content_type: appliction/zip
 
