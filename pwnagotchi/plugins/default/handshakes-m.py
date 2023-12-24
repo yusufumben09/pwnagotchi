@@ -79,8 +79,8 @@ TEMPLATE = """
             <tr>
                 <td><span class="arrow" id="arrow-{{ ssid }}" onclick="toggleFiles('{{ ssid }}')">&#9658;</span> {{ ssid }}</td>
                 <td>
-                    <a href="/plugins/handshakes-dl/download-all/{{ ssid }}">Download All</a> | 
-                    <a href="/plugins/handshakes-dl/delete/{{ ssid }}" onclick="return confirm('Are you sure you want to delete all files for this SSID?');">Delete All</a>
+                    <a href="/plugins/handshakes-m/download-all/{{ ssid }}">Download All</a> | 
+                    <a href="/plugins/handshakes-m/delete/{{ ssid }}" onclick="return confirm('Are you sure you want to delete all files for this SSID?');">Delete All</a>
                 </td>
             </tr>
         </tbody>
@@ -89,8 +89,8 @@ TEMPLATE = """
             <tr>
                 <td>- {{ file }}</td>
                 <td>
-                    <a href="/plugins/handshakes-dl/download/{{ file }}">Download</a> |
-                    <a href="/plugins/handshakes-dl/delete/{{ file }}" onclick="return confirm('Are you sure you want to delete this file?');">Delete</a>
+                    <a href="/plugins/handshakes-m/download/{{ file }}">Download</a> |
+                    <a href="/plugins/handshakes-m/delete/{{ file }}" onclick="return confirm('Are you sure you want to delete this file?');">Delete</a>
                 </td>
             </tr>
             {% endfor %}
