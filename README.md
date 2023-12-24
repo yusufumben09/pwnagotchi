@@ -1,3 +1,5 @@
+This is an edited version that fixes the handshakes-m bug.
+
 # Pwnagotchi
 
 <p align="center">
