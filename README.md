@@ -7,7 +7,7 @@
     <a href="https://twitter.com/intent/follow?screen_name=pwnagotchi"><img src="https://img.shields.io/twitter/follow/pwnagotchi?style=social&logo=twitter" alt="follow on Twitter"></a>
 </p>
 
-This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. **I will not support the original RPiZW. The board is obsolete and unpowered. Spend $15 and get an RPiZ2W. Issues about the original RPiZW will be immediately closed.** Major changes include:
+This is a fork of the [original pwnagotchi project](https://github.com/evilsocket/pwnagotchi). I have heavily updated my fork to enable pwnagotchi to run well on a Raspberry Pi Zero 2 W. Major changes include:
 
 1. **Remove all dependency on Kali-Pi** (causes more problems than it fixes) :boom: :boom:
 2. Update to [Old Stable Buster Lite 2023-05-03](https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2023-05-03/)
@@ -20,6 +20,8 @@ This is a fork of the [original pwnagotchi project](https://github.com/evilsocke
 7. Install aircrack-ng
 8. Install pwnagotchi plugin for the Waveshare UPS hat, Mastodon, and aircrack (to delete empty pcap files); need to manually add configuration to config.toml
 9. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
+
+**I do not support the original RPiZW. The board is obsolete and unpowered. Spend $15 and get an RPiZ2W. Issues about the original RPiZW will be immediately closed.**
 
 ---
 
