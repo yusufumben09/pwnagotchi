@@ -21,9 +21,9 @@ This is a fork of the [original pwnagotchi project](https://github.com/evilsocke
 8. Install pwnagotchi plugin for the Waveshare UPS hat, Mastodon, and aircrack (to delete empty pcap files); need to manually add configuration to config.toml
 9. Turn off power saving mode for the wifi chip to prevent BRCM firmware crashes during packet injection (e.g., deauth attack)
 
-If you'd like to support my work, contributions can be sent to my BTC wallet: 
+If you'd like to support my work, contributions can be sent to my BTC wallet: 1CdEWNasdBbu4mB8QgfhFnWwKjHJVJaWZF
 
-1CdEWNasdBbu4mB8QgfhFnWwKjHJVJaWZF
+![50653A40-45F3-4D92-A89E-5FCBD20F60CC_4_5005_c](https://github.com/aluminum-ice/pwnagotchi/assets/12374267/04761c6e-f6a7-40b1-803f-6ee6e6bf2278)
 
 **I do not support the original RPiZW. The board is obsolete and unpowered. Spend $15 and get an RPiZ2W. Issues about the original RPiZW will be immediately closed.**
 
