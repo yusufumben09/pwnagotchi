@@ -70,6 +70,9 @@ def display_for(config):
     elif config['ui']['display']['type'] == 'waveshare213d':
         return Waveshare213d(config)
 
+    elif config['ui']['display']['type'] == 'waveshare213g':
+        return Waveshare213g(config)
+
     elif config['ui']['display']['type'] == 'waveshare213bc':
         return Waveshare213bc(config)
 
